@@ -175,7 +175,7 @@ python -c "import secrets; print(secrets.token_urlsafe(48))"
 alembic upgrade head
 ```
 
-> **Known issue.** The migrations do not create the `users_researcher` table, so web dashboard registration and login fail on a new database. The mobile API is not affected. See item F2 in [docs/ROADMAP.md](docs/ROADMAP.md).
+> **Known issue.** The migrations do not create the `users_researcher` table, so web dashboard registration and login fail on a new database. The mobile API is not affected.
 
 ### Step 7: Run the API
 
@@ -227,7 +227,7 @@ All settings are read from environment variables, normally through the `.env` fi
 | `AWS_REGION`, `S3_BUCKET_NAME` | Only for `/files` | – | S3 bucket used for uploads |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | No | – | Only when no IAM role is available. On EC2, use an IAM role instead |
 
-The four AWS variables in the last two rows are listed in `.env.example` but are not yet defined in `app/core/config.py`, so the `/files` endpoints do not work. See item F3 in [docs/ROADMAP.md](docs/ROADMAP.md).
+The four AWS variables in the last two rows are listed in `.env.example` but are not yet defined in `app/core/config.py`, so the `/files` endpoints do not work.
 
 ---
 
@@ -289,4 +289,3 @@ For a deployed backend, add the web dashboard's URL to `CORS_ORIGINS`.
 | [docs/API.md](docs/API.md) | Every endpoint, with method, path, authentication and purpose |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deploying to EC2 with systemd, logs, HTTPS setup and post-deployment checks |
 | [docs/DATABASE_ACCESS.md](docs/DATABASE_ACCESS.md) | Connecting to the production or a local database with DBeaver, browsing and exporting data |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | Known issues and planned work |

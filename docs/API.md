@@ -55,7 +55,7 @@ The token is returned by the login endpoint of the matching API (mobile or web).
 
 ### Files — `/files`
 
-These endpoints do not work yet, because their S3 settings are not defined in the application settings. See item F3 in [ROADMAP.md](ROADMAP.md).
+These endpoints do not work yet, because their S3 settings are not defined in the application settings.
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
@@ -81,7 +81,7 @@ These endpoints do not work yet, because their S3 settings are not defined in th
 | Method | Path | Auth | Query | Description |
 |---|---|---|---|---|
 | GET | `/dashboard/summary` | 🔒 | – | Counts of firefighters, chiefs and fire stations |
-| GET | `/data/tabledata` | – | `limit`, `page` (both required) | Paginated GPS points from `locations`. Not yet protected, see item S2 in [ROADMAP.md](ROADMAP.md) |
+| GET | `/data/tabledata` | 🔒 | `limit`, `page` (both required) | Paginated GPS points from `locations` |
 | GET | `/table/export-csv` | 🔒 | – | All GPS points as a CSV download |
 | GET | `/table/eventdata` | 🔒 | `limit`, `page` (both required) | Paginated fire events |
 | GET | `/table/export-event-data` | 🔒 | – | All fire events as a CSV download |

@@ -23,8 +23,9 @@ The production database holds real personal data, and changes to it are permanen
 
 1. In DBeaver, choose **Database → New Database Connection → PostgreSQL**.
 2. Enter the host, database, username and password from `Access_Details.md`. The port is `5432`.
-3. On the **General** tab, set **Connection type** to **Production** and tick **Read-only connection**.
-4. Click **Test Connection**, then **Finish**.
+3. On the **SSH** tab, tick **Use SSH Tunnel** and connect through the API server: host `<EC2 public IP>`, port `22`, user `ubuntu`, authentication **Public Key** with the EC2 key pair file from the handover package. The database only accepts connections from the API server, so a direct connection from a laptop is refused.
+4. On the **General** tab, set **Connection type** to **Production** and tick **Read-only connection**.
+5. Click **Test Connection**, then **Finish**.
 
 The tables are under **Schemas → public → Tables**.
 
@@ -67,4 +68,4 @@ alembic upgrade head
 
 Set `DATABASE_URL` in `.env` to `postgresql+psycopg2://<LOCAL_USER>@localhost:5432/firefighter`, then connect DBeaver to host `localhost`, port `5432`, database `firefighter`.
 
-Known issue: the migrations do not create `users_researcher`, so web dashboard login fails on a new database. See item F2 in [ROADMAP.md](ROADMAP.md).
+Known issue: the migrations do not create `users_researcher`, so web dashboard login fails on a new database.

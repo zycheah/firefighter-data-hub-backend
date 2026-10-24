@@ -76,7 +76,7 @@ chmod 600 .env
 alembic upgrade head
 ```
 
-On a new database, the migrations do not create the `users_researcher` table that web dashboard login needs. See item F2 in [ROADMAP.md](ROADMAP.md).
+On a new database, the migrations do not create the `users_researcher` table that web dashboard login needs.
 
 ### Step 7: Create the systemd service
 
