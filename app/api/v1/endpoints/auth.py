@@ -377,12 +377,21 @@ def delete_account(
     return {"message": "Account deleted successfully"}
 
 
+PASSWORD_RESET_UNAVAILABLE = (
+    "Password reset is temporarily unavailable. "
+    "Please contact icpclab@gmail.com for help."
+)
+
+
 @router.post("/forgot-password/request")
 def forgot_password_request(
     payload: ForgotPasswordRequestDTO,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
+    # Disabled until reset requires a code sent by email.
+    raise HTTPException(status_code=503, detail=PASSWORD_RESET_UNAVAILABLE)
+
     user = db.query(UserModel).filter(UserModel.email == payload.email).first()
 
     if not user:
@@ -408,6 +417,9 @@ def forgot_password_confirm(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
+    # Disabled: it set a new password from the email address alone.
+    raise HTTPException(status_code=503, detail=PASSWORD_RESET_UNAVAILABLE)
+
     user = db.query(UserModel).filter(UserModel.email == payload.email).first()
 
     if not user:

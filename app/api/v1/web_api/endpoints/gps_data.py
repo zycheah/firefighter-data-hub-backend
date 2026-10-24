@@ -1,18 +1,27 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.security import OAuth2PasswordBearer
 
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from app.core.deps import get_db
+from app.api.v1.web_api.endpoints.eventtable import _verify_researcher
 
 from app.models.locationModel import LocationEntryModel
 
 from app.api.v1.web_api.responseDTO.LocationDataResponse import LocationDataResponse
 
 send_location_router = APIRouter()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/web_api/auth/login")
 
 @send_location_router.get("/tabledata", response_model=LocationDataResponse)
-def gps_data_transfer(limit: int, page : int, db:Session = Depends(get_db)):
+def gps_data_transfer(
+    limit: int,
+    page: int,
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
+):
+    _verify_researcher(token, db)
     offset_data = 0
     if (page > 1 ):
         offset_data = (page - 1)*limit

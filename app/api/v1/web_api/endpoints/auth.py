@@ -112,6 +112,9 @@ def login(payload: LoginRequestDTO, db : Session = Depends(get_db)):
 
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Users credentials")
+
+    if not user.is_active:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Account pending approval")
     
     token = create_access_token(subject=user.id, role=user.role)
     user.refresh_token = token
@@ -138,6 +141,8 @@ def register(payload :RegisterRequestDTO, db:Session = Depends(get_db) ):
         password_hash=hash_password(payload.password),
         role=payload.role.lower(),
         phonenumber=payload.phoneNumber,
+        # Researcher accounts are approved by an administrator before first sign-in.
+        is_active=False,
     )
 
     db.add(user)
